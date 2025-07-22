@@ -52,6 +52,13 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				// Green City custom colors
+				nature: 'hsl(var(--nature-green))',
+				forest: 'hsl(var(--forest-green))',
+				mint: 'hsl(var(--mint-green))',
+				earth: 'hsl(var(--earth-brown))',
+				sky: 'hsl(var(--sky-blue))',
+				water: 'hsl(var(--water-blue))',
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
