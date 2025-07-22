@@ -6,11 +6,13 @@ const Navigation = () => {
   const location = useLocation();
   
   const navItems = [
-    { name: "Dashboard", path: "/", icon: BarChart3 },
+    { name: "Home", path: "/", icon: BarChart3 },
+    { name: "Dashboard", path: "/dashboard", icon: BarChart3 },
     { name: "Carbon Tracker", path: "/carbon-tracker", icon: Leaf },
     { name: "Heat Detection", path: "/heat-detection", icon: Thermometer },
     { name: "Flood Alerts", path: "/flood-alerts", icon: Droplets },
     { name: "Waste Gamification", path: "/waste-gamification", icon: Recycle },
+    { name: "Admin", path: "/admin", icon: BarChart3 },
   ];
 
   return (
