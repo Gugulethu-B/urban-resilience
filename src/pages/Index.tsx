@@ -1,8 +1,7 @@
 import Navigation from "@/components/Navigation";
 import FeatureCard from "@/components/FeatureCard";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Leaf, Thermometer, Droplets, Recycle, Users, TrendingUp, MapPin, Zap } from "lucide-react";
+import { Leaf, Thermometer, Droplets, Recycle, Users, TrendingUp, Zap } from "lucide-react";
 
 const Index = () => {
   const features = [
@@ -40,13 +39,6 @@ const Index = () => {
     }
   ];
 
-  const quickStats = [
-    { label: "Total Users", value: "3,456", icon: Users, change: "+12%" },
-    { label: "Carbon Saved", value: "45.2t", icon: Leaf, change: "+8%" },
-    { label: "Alerts Sent", value: "234", icon: Zap, change: "+23%" },
-    { label: "Cities Connected", value: "12", icon: MapPin, change: "+2%" },
-  ];
-
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -65,29 +57,6 @@ const Index = () => {
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Comprehensive environmental monitoring and citizen engagement platform for creating greener, smarter urban environments.
           </p>
-        </div>
-      </section>
-
-      {/* Quick Stats */}
-      <section className="py-12 px-4 -mt-8 relative z-10">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            {quickStats.map((stat, index) => (
-              <Card key={index} className="text-center shadow-soft hover:shadow-medium transition-shadow">
-                <CardContent className="pt-6">
-                  <div className="flex items-center justify-center mb-2">
-                    <stat.icon className="h-8 w-8 text-primary" />
-                  </div>
-                  <div className="text-2xl font-bold text-foreground">{stat.value}</div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
-                  <Badge variant="secondary" className="mt-2">
-                    <TrendingUp className="h-3 w-3 mr-1" />
-                    {stat.change}
-                  </Badge>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
         </div>
       </section>
 
