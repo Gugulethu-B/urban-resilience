@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carbon Tracker - Green City Management</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body { background: #f8fafc; }
+    .gradient-bg { background: linear-gradient(135deg, #a8ff78 0%, #78ffd6 100%); }
+    .feature-icon { font-size: 2rem; }
+    .progress-bar { transition: width 0.6s ease; }
+    .bg-orange-500 { background-color: #fd7e14 !important; }
+    .bg-blue-500 { background-color: #0d6efd !important; }
+    .bg-purple-500 { background-color: #6f42c1 !important; }
+    .bg-gray-500 { background-color: #adb5bd !important; }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4 fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="/"><i class="fa-solid fa-leaf text-success me-2"></i>Green City Hack</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/admin">Admin</a></li>
+          <li class="nav-item"><a class="nav-link active" href="/carbon">Carbon</a></li>
+          <li class="nav-item"><a class="nav-link" href="/flood/alerts">Flood</a></li>
+          <li class="nav-item"><a class="nav-link" href="/heat">Heat</a></li>
+          <li class="nav-item"><a class="nav-link" href="/waste">Waste</a></li>
+          <li class="nav-item">
+            <button class="btn btn-success ms-3" data-bs-toggle="modal" data-bs-target="#authModal">Sign Up / Login</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <section class="py-5 gradient-bg">
+    <div class="container">
+      <div class="d-flex align-items-center mb-4">
+        <div class="p-3 bg-success bg-opacity-10 rounded-3 me-3">
+          <i class="fa-solid fa-leaf text-success fa-2x"></i>
+        </div>
+        <div>
+          <h1 class="h3 fw-bold mb-1">Carbon Tracker</h1>
+          <p class="text-muted mb-0">Monitor and reduce city-wide CO2 emissions</p>
+        </div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <div>
+                  <div class="small text-muted">Current Emissions</div>
+                  <div class="h4 fw-bold">108.2t CO2</div>
+                </div>
+                <i class="fa-solid fa-arrow-trend-down text-success fa-2x"></i>
+              </div>
+              <span class="badge bg-success mb-2"><i class="fa-solid fa-arrow-trend-down me-1"></i>2.3% decrease</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <div>
+                  <div class="small text-muted">Monthly Target</div>
+                  <div class="h4 fw-bold">105.0t CO2</div>
+                </div>
+                <i class="fa-solid fa-bullseye text-info fa-2x"></i>
+              </div>
+              <div class="progress mb-1 progress-custom">
+                <div class="progress-bar bg-info progress-bar-97" role="progressbar" aria-label="CO2 Reduction Progress"></div>
+              </div>
+              <div class="small text-muted">97% of target achieved</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <div>
+                  <div class="small text-muted">Annual Goal</div>
+                  <div class="h4 fw-bold">1,200t CO2</div>
+                </div>
+                <i class="fa-solid fa-arrow-trend-up text-success fa-2x"></i>
+              </div>
+              <div class="progress mb-1 progress-custom">
+                <div class="progress-bar bg-success progress-bar-54" role="progressbar" aria-label="Goal Progress"></div>
+              </div>
+              <div class="small text-muted">54% progress to annual goal</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row g-4">
+        <!-- Emission Sources -->
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header fw-bold">Emission Sources <span class="text-muted small fw-normal">Breakdown of CO2 emissions by sector</span></div>
+            <div class="card-body">
+              <div class="mb-3 d-flex align-items-center">
+                <div class="p-2 rounded bg-orange-500 bg-opacity-10 me-3"><i class="fa-solid fa-car text-warning"></i></div>
+                <div class="flex-grow-1">
+                  <div class="d-flex justify-content-between mb-1">
+                    <span class="small fw-medium">Transportation</span>
+                    <span class="small text-muted">45%</span>
+                  </div>
+                  <div class="progress progress-custom">
+                    <div class="progress-bar bg-orange-500 progress-bar-45" role="progressbar" aria-label="Waste Progress"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3 d-flex align-items-center">
+                <div class="p-2 rounded bg-blue-500 bg-opacity-10 me-3"><i class="fa-solid fa-building text-primary"></i></div>
+                <div class="flex-grow-1">
+                  <div class="d-flex justify-content-between mb-1">
+                    <span class="small fw-medium">Buildings</span>
+                    <span class="small text-muted">30%</span>
+                  </div>
+                  <div class="progress progress-custom">
+                    <div class="progress-bar bg-blue-500 progress-bar-30" role="progressbar" aria-label="Water Progress"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3 d-flex align-items-center">
+                <div class="p-2 rounded bg-purple-500 bg-opacity-10 me-3"><i class="fa-solid fa-industry text-purple-500"></i></div>
+                <div class="flex-grow-1">
+                  <div class="d-flex justify-content-between mb-1">
+                    <span class="small fw-medium">Industry</span>
+                    <span class="small text-muted">20%</span>
+                  </div>
+                  <div class="progress progress-custom">
+                    <div class="progress-bar bg-purple-500 progress-bar-20" role="progressbar" aria-label="Energy Progress"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3 d-flex align-items-center">
+                <div class="p-2 rounded bg-gray-500 bg-opacity-10 me-3"><i class="fa-solid fa-users text-secondary"></i></div>
+                <div class="flex-grow-1">
+                  <div class="d-flex justify-content-between mb-1">
+                    <span class="small fw-medium">Other</span>
+                    <span class="small text-muted">5%</span>
+                  </div>
+                  <div class="progress progress-custom">
+                    <div class="progress-bar bg-gray-500 progress-bar-5" role="progressbar" aria-label="Other Progress"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Monthly Trends -->
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header fw-bold">Monthly Trends <span class="text-muted small fw-normal">Emissions vs targets over time</span></div>
+            <div class="card-body">
+              <div class="mb-3 d-flex justify-content-between align-items-center p-2 bg-light rounded">
+                <span class="fw-medium">Jan</span>
+                <div class="text-end">
+                  <div class="small">120t <span class="text-muted">/ 115t</span></div>
+                  <div class="text-success small">✓ Target met</div>
+                </div>
+              </div>
+              <div class="mb-3 d-flex justify-content-between align-items-center p-2 bg-light rounded">
+                <span class="fw-medium">Feb</span>
+                <div class="text-end">
+                  <div class="small">118t <span class="text-muted">/ 113t</span></div>
+                  <div class="text-success small">✓ Target met</div>
+                </div>
+              </div>
+              <div class="mb-3 d-flex justify-content-between align-items-center p-2 bg-light rounded">
+                <span class="fw-medium">Mar</span>
+                <div class="text-end">
+                  <div class="small">115t <span class="text-muted">/ 111t</span></div>
+                  <div class="text-success small">✓ Target met</div>
+                </div>
+              </div>
+              <div class="mb-3 d-flex justify-content-between align-items-center p-2 bg-light rounded">
+                <span class="fw-medium">Apr</span>
+                <div class="text-end">
+                  <div class="small">112t <span class="text-muted">/ 109t</span></div>
+                  <div class="text-success small">✓ Target met</div>
+                </div>
+              </div>
+              <div class="mb-3 d-flex justify-content-between align-items-center p-2 bg-light rounded">
+                <span class="fw-medium">May</span>
+                <div class="text-end">
+                  <div class="small">110t <span class="text-muted">/ 107t</span></div>
+                  <div class="text-success small">✓ Target met</div>
+                </div>
+              </div>
+              <div class="mb-3 d-flex justify-content-between align-items-center p-2 bg-light rounded">
+                <span class="fw-medium">Jun</span>
+                <div class="text-end">
+                  <div class="small">108t <span class="text-muted">/ 105t</span></div>
+                  <div class="text-success small">✓ Target met</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Reduction Actions -->
+      <div class="card mt-5">
+        <div class="card-header fw-bold">Reduction Actions <span class="text-muted small fw-normal">Implement these strategies to reduce carbon emissions</span></div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-md-4">
+              <div class="border rounded p-3 h-100">
+                <h5 class="fw-semibold mb-2">Green Transportation</h5>
+                <p class="small text-muted mb-2">Promote electric vehicles and public transport</p>
+                <a href="#" class="btn btn-outline-secondary btn-sm">Learn More</a>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="border rounded p-3 h-100">
+                <h5 class="fw-semibold mb-2">Energy Efficiency</h5>
+                <p class="small text-muted mb-2">Upgrade building systems and renewable energy</p>
+                <a href="#" class="btn btn-outline-secondary btn-sm">Learn More</a>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="border rounded p-3 h-100">
+                <h5 class="fw-semibold mb-2">Industrial Optimization</h5>
+                <p class="small text-muted mb-2">Implement clean technologies and processes</p>
+                <a href="#" class="btn btn-outline-secondary btn-sm">Learn More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer-main mt-5 py-4 bg-bg-success text-white">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+      <div class="mb-2 mb-md-0 fw-bold">
+        <i class="fa-solid fa-leaf me-2"></i>Urban Resilience Platform
+      </div>
+      <div class="footer-copyright small">
+        &copy; 2024 Green City Hack. All rights reserved.
+      </div>
+      <div>
+        <a href="https://github.com/" class="text-white me-3" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="mailto:info@greencityhack.com" class="text-white" title="Contact"><i class="fa fa-envelope"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

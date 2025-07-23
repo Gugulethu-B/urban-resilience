@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Waste Gamification - Green City Management</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body { background: #f8fafc; }
+    .gradient-bg { background: linear-gradient(135deg, #e0ffe0 0%, #e0fff7 100%); }
+    .bg-blue-500 { background-color: #0d6efd !important; }
+    .bg-green-500 { background-color: #198754 !important; }
+    .bg-gray-500 { background-color: #adb5bd !important; }
+    .bg-yellow-500 { background-color: #ffc107 !important; }
+    .bg-orange-500 { background-color: #fd7e14 !important; }
+    .bg-gray-400 { background-color: #ced4da !important; }
+    .bg-orange-600 { background-color: #fd7e14 !important; }
+    .bg-purple-500 { background-color: #6f42c1 !important; }
+    .bg-purple-100 { background-color: #f3e8ff !important; }
+    .bg-blue-100 { background-color: #e7f1ff !important; }
+    .bg-green-100 { background-color: #e6ffed !important; }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4 fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="/"><i class="fa-solid fa-leaf text-success me-2"></i>Green City Hack</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/admin">Admin</a></li>
+          <li class="nav-item"><a class="nav-link" href="/carbon">Carbon</a></li>
+          <li class="nav-item"><a class="nav-link" href="/flood/alerts">Flood</a></li>
+          <li class="nav-item"><a class="nav-link" href="/heat">Heat</a></li>
+          <li class="nav-item"><a class="nav-link active" href="/waste">Waste</a></li>
+          <li class="nav-item">
+            <button class="btn btn-success ms-3" data-bs-toggle="modal" data-bs-target="#authModal">Sign Up / Login</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <section class="py-5 gradient-bg">
+    <div class="container">
+      <div class="d-flex align-items-center mb-4">
+        <div class="p-3 bg-success bg-opacity-10 rounded-3 me-3">
+          <i class="fa-solid fa-recycle text-success fa-2x"></i>
+        </div>
+        <div>
+          <h1 class="h3 fw-bold mb-1">Waste Gamification</h1>
+          <p class="text-muted mb-0">AI-powered waste recognition and recycling rewards</p>
+        </div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-3">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <div>
+                  <div class="small text-muted">Active Users</div>
+                  <div class="h4 fw-bold">1,247</div>
+                </div>
+                <i class="fa-solid fa-users text-success fa-2x"></i>
+              </div>
+              <span class="badge bg-secondary mb-2"><i class="fa-solid fa-arrow-trend-up me-1"></i>+15% this week</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <div>
+                  <div class="small text-muted">Items Scanned</div>
+                  <div class="h4 fw-bold">4,674</div>
+                </div>
+                <i class="fa-solid fa-camera text-primary fa-2x"></i>
+              </div>
+              <div class="small text-muted">91% accuracy rate</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <div>
+                  <div class="small text-muted">Points Awarded</div>
+                  <div class="h4 fw-bold">89,240</div>
+                </div>
+                <i class="fa-solid fa-star text-warning fa-2x"></i>
+              </div>
+              <div class="small text-muted">This month</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <div>
+                  <div class="small text-muted">Challenges Active</div>
+                  <div class="h4 fw-bold">8</div>
+                </div>
+                <i class="fa-solid fa-trophy text-purple-500 fa-2x"></i>
+              </div>
+              <div class="small text-muted">3 ending soon</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row g-4">
+        <!-- Community Leaderboard -->
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header fw-bold">Community Leaderboard <span class="text-muted small fw-normal">Top performers in waste recognition and recycling</span></div>
+            <div class="card-body">
+              <div class="mb-3 d-flex align-items-center justify-content-between p-2 bg-light rounded">
+                <div class="d-flex align-items-center">
+                  <span class="d-inline-block text-center rounded-circle bg-primary text-white fw-bold me-2 circle-step">1</span>
+                  <div>
+                    <div class="fw-medium">EcoWarrior2024</div>
+                    <div class="small text-muted">156 items scanned</div>
+                  </div>
+                </div>
+                <div class="text-end">
+                  <span class="d-inline-block rounded-circle bg-warning me-2 dot-small"></span>
+                  <span class="fw-bold">2847</span><br>
+                  <span class="small text-muted">points</span>
+                </div>
+              </div>
+              <div class="mb-3 d-flex align-items-center justify-content-between p-2 bg-light rounded">
+                <div class="d-flex align-items-center">
+                  <span class="d-inline-block text-center rounded-circle bg-primary text-white fw-bold me-2 circle-step">2</span>
+                  <div>
+                    <div class="fw-medium">GreenHero</div>
+                    <div class="small text-muted">134 items scanned</div>
+                  </div>
+                </div>
+                <div class="text-end">
+                  <span class="d-inline-block rounded-circle bg-gray-400 me-2 dot-small"></span>
+                  <span class="fw-bold">2103</span><br>
+                  <span class="small text-muted">points</span>
+                </div>
+              </div>
+              <div class="mb-3 d-flex align-items-center justify-content-between p-2 bg-light rounded">
+                <div class="d-flex align-items-center">
+                  <span class="d-inline-block text-center rounded-circle bg-primary text-white fw-bold me-2 circle-step">3</span>
+                  <div>
+                    <div class="fw-medium">RecycleChamp</div>
+                    <div class="small text-muted">98 items scanned</div>
+                  </div>
+                </div>
+                <div class="text-end">
+                  <span class="d-inline-block rounded-circle bg-orange-600 me-2 dot-small"></span>
+                  <span class="fw-bold">1892</span><br>
+                  <span class="small text-muted">points</span>
+                </div>
+              </div>
+              <div class="mb-3 d-flex align-items-center justify-content-between p-2 bg-light rounded">
+                <div class="d-flex align-items-center">
+                  <span class="d-inline-block text-center rounded-circle bg-primary text-white fw-bold me-2 circle-step">4</span>
+                  <div>
+                    <div class="fw-medium">EarthGuardian</div>
+                    <div class="small text-muted">87 items scanned</div>
+                  </div>
+                </div>
+                <div class="text-end">
+                  <span class="d-inline-block rounded-circle bg-orange-600 me-2 dot-small"></span>
+                  <span class="fw-bold">1654</span><br>
+                  <span class="small text-muted">points</span>
+                </div>
+              </div>
+              <div class="mb-3 d-flex align-items-center justify-content-between p-2 bg-light rounded">
+                <div class="d-flex align-items-center">
+                  <span class="d-inline-block text-center rounded-circle bg-primary text-white fw-bold me-2 circle-step">5</span>
+                  <div>
+                    <div class="fw-medium">CleanCityFan</div>
+                    <div class="small text-muted">76 items scanned</div>
+                  </div>
+                </div>
+                <div class="text-end">
+                  <span class="d-inline-block rounded-circle bg-orange-600 me-2 dot-small"></span>
+                  <span class="fw-bold">1432</span><br>
+                  <span class="small text-muted">points</span>
+                </div>
+              </div>
+              <a href="#" class="btn btn-outline-secondary w-100 mt-3"><i class="fa-solid fa-trophy me-2"></i>View Full Leaderboard</a>
+            </div>
+          </div>
+        </div>
+        <!-- Active Challenges -->
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header fw-bold">Active Challenges <span class="text-muted small fw-normal">Complete challenges to earn extra points</span></div>
+            <div class="card-body">
+              <div class="mb-3 p-3 border rounded">
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="fw-medium">Plastic Free Week</span>
+                  <span class="badge bg-secondary">Active</span>
+                </div>
+                <div class="row small align-items-center">
+                  <div class="col">Progress<br><span class="fw-medium">67/100</span></div>
+                  <div class="col">Reward<br><span class="fw-medium">250 points</span></div>
+                  <div class="col">Status<br><span class="fw-medium">Active</span></div>
+                </div>
+                <div class="progress mt-2 progress-custom">
+                  <div class="progress-bar bg-secondary progress-bar-67" role="progressbar" aria-label="Step Progress 1"></div>
+                </div>
+              </div>
+              <div class="mb-3 p-3 border rounded">
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="fw-medium">Glass Collection</span>
+                  <span class="badge bg-primary">Complete</span>
+                </div>
+                <div class="row small align-items-center">
+                  <div class="col">Progress<br><span class="fw-medium">89/50</span></div>
+                  <div class="col">Reward<br><span class="fw-medium">150 points</span></div>
+                  <div class="col">Status<br><span class="fw-medium">Complete</span></div>
+                </div>
+                <div class="progress mt-2 progress-custom">
+                  <div class="progress-bar bg-primary progress-bar-100" role="progressbar" aria-label="Step Progress 2"></div>
+                </div>
+              </div>
+              <div class="mb-3 p-3 border rounded">
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="fw-medium">E-Waste Drive</span>
+                  <span class="badge bg-secondary">Active</span>
+                </div>
+                <div class="row small align-items-center">
+                  <div class="col">Progress<br><span class="fw-medium">23/30</span></div>
+                  <div class="col">Reward<br><span class="fw-medium">300 points</span></div>
+                  <div class="col">Status<br><span class="fw-medium">Active</span></div>
+                </div>
+                <div class="progress mt-2 progress-custom">
+                  <div class="progress-bar bg-secondary progress-bar-77" role="progressbar" aria-label="Step Progress 3"></div>
+                </div>
+              </div>
+              <div class="mb-3 p-3 border rounded">
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="fw-medium">Community Clean-up</span>
+                  <span class="badge bg-secondary">Active</span>
+                </div>
+                <div class="row small align-items-center">
+                  <div class="col">Progress<br><span class="fw-medium">45/20</span></div>
+                  <div class="col">Reward<br><span class="fw-medium">500 points</span></div>
+                  <div class="col">Status<br><span class="fw-medium">Active</span></div>
+                </div>
+                <div class="progress mt-2 progress-custom">
+                  <div class="progress-bar bg-secondary progress-bar-100" role="progressbar" aria-label="Step Progress 4"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- AI Waste Recognition -->
+      <div class="card mt-5">
+        <div class="card-header fw-bold">AI Waste Recognition <span class="text-muted small fw-normal">Machine learning performance by waste category</span></div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-md-2 text-center">
+              <div class="rounded-circle bg-blue-500 mx-auto mb-2 icon-circle"><i class="fa-solid fa-recycle text-white fa-lg icon-circle-icon"></i></div>
+              <div class="fw-semibold">Plastic</div>
+              <div class="fw-bold">1247</div>
+              <div class="small text-muted">items recognized</div>
+              <span class="badge bg-outline">94% accuracy</span>
+            </div>
+            <div class="col-md-2 text-center">
+              <div class="rounded-circle bg-green-500 mx-auto mb-2 icon-circle"><i class="fa-solid fa-recycle text-white fa-lg icon-circle-icon"></i></div>
+              <div class="fw-semibold">Glass</div>
+              <div class="fw-bold">892</div>
+              <div class="small text-muted">items recognized</div>
+              <span class="badge bg-outline">97% accuracy</span>
+            </div>
+            <div class="col-md-2 text-center">
+              <div class="rounded-circle bg-gray-500 mx-auto mb-2 icon-circle"><i class="fa-solid fa-recycle text-white fa-lg icon-circle-icon"></i></div>
+              <div class="fw-semibold">Metal</div>
+              <div class="fw-bold">654</div>
+              <div class="small text-muted">items recognized</div>
+              <span class="badge bg-outline">91% accuracy</span>
+            </div>
+            <div class="col-md-2 text-center">
+              <div class="rounded-circle bg-yellow-500 mx-auto mb-2 icon-circle"><i class="fa-solid fa-recycle text-white fa-lg icon-circle-icon"></i></div>
+              <div class="fw-semibold">Paper</div>
+              <div class="fw-bold">1103</div>
+              <div class="small text-muted">items recognized</div>
+              <span class="badge bg-outline">89% accuracy</span>
+            </div>
+            <div class="col-md-2 text-center">
+              <div class="rounded-circle bg-orange-500 mx-auto mb-2 icon-circle"><i class="fa-solid fa-recycle text-white fa-lg icon-circle-icon"></i></div>
+              <div class="fw-semibold">Organic</div>
+              <div class="fw-bold">778</div>
+              <div class="small text-muted">items recognized</div>
+              <span class="badge bg-outline">85% accuracy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- How Waste Gamification Works -->
+      <div class="card mt-5">
+        <div class="card-header fw-bold">How Waste Gamification Works <span class="text-muted small fw-normal">Scan, earn, and make a difference</span></div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-md-4 text-center">
+              <div class="rounded-circle bg-blue-100 mx-auto mb-3 icon-circle-lg"><i class="fa-solid fa-camera text-primary fa-2x icon-circle-lg-icon"></i></div>
+              <div class="fw-semibold mb-2">1. Scan Waste</div>
+              <div class="small text-muted">Use your phone camera to scan recyclable items. Our AI identifies the material type instantly.</div>
+            </div>
+            <div class="col-md-4 text-center">
+              <div class="rounded-circle bg-green-100 mx-auto mb-3 icon-circle-lg"><i class="fa-solid fa-star text-success fa-2x icon-circle-lg-icon"></i></div>
+              <div class="fw-semibold mb-2">2. Earn Points</div>
+              <div class="small text-muted">Get points for proper recycling. Different materials have different point values based on environmental impact.</div>
+            </div>
+            <div class="col-md-4 text-center">
+              <div class="rounded-circle bg-purple-100 mx-auto mb-3 icon-circle-lg"><i class="fa-solid fa-trophy text-purple-500 fa-2x icon-circle-lg-icon"></i></div>
+              <div class="fw-semibold mb-2">3. Win Rewards</div>
+              <div class="small text-muted">Redeem points for eco-friendly products, discounts, or donate to environmental causes.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer-main mt-5 py-4 bg-bg-success text-white">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+      <div class="mb-2 mb-md-0 fw-bold">
+        <i class="fa-solid fa-leaf me-2"></i>Urban Resilience Platform
+      </div>
+      <div class="footer-copyright small">
+        &copy; 2024 Green City Hack. All rights reserved.
+      </div>
+      <div>
+        <a href="https://github.com/" class="text-white me-3" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="mailto:info@greencityhack.com" class="text-white" title="Contact"><i class="fa fa-envelope"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

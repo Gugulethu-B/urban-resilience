@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - Green City Management</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body { background: #f8fafc; }
+    .feature-icon { font-size: 1.5rem; }
+    .card-title .fa-solid { margin-right: 0.5rem; }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4 fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html"><i class="fa-solid fa-leaf text-success me-2"></i>Green City Hack</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/admin">Admin</a></li>
+          <li class="nav-item"><a class="nav-link" href="/carbon">Carbon</a></li>
+          <li class="nav-item"><a class="nav-link" href="/user">User</a></li>
+          <li class="nav-item"><a class="nav-link" href="/flood/alerts">Flood</a></li>
+          <li class="nav-item"><a class="nav-link" href="/heat">Heat</a></li>
+          <li class="nav-item"><a class="nav-link" href="/waste">Waste</a></li>
+          <li class="nav-item">
+            <button class="btn btn-success ms-3" data-bs-toggle="modal" data-bs-target="#authModal">Sign Up / Login</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container px-4 py-5">
+    <div class="mb-4">
+      <h1 class="h2 fw-bold mb-1">Admin Dashboard</h1>
+      <p class="text-muted">Monitor and manage the Green City system</p>
+    </div>
+
+    <!-- System Statistics -->
+    <div class="row g-4 mb-4">
+      <div class="col-md-3">
+        <div class="card h-100">
+          <div class="card-header d-flex justify-content-between align-items-center pb-2">
+            <span class="text-muted small">Total Users</span>
+            <i class="fa-solid fa-users text-secondary"></i>
+          </div>
+          <div class="card-body">
+            <div class="h4 fw-bold">1,234</div>
+            <div class="text-xs text-muted"><span class="text-success">+12%</span> from last month</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card h-100">
+          <div class="card-header d-flex justify-content-between align-items-center pb-2">
+            <span class="text-muted small">Active Alerts</span>
+            <i class="fa-solid fa-triangle-exclamation text-danger"></i>
+          </div>
+          <div class="card-body">
+            <div class="h4 fw-bold">23</div>
+            <div class="text-xs text-muted"><span class="text-danger">+5</span> from last month</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card h-100">
+          <div class="card-header d-flex justify-content-between align-items-center pb-2">
+            <span class="text-muted small">System Health</span>
+            <i class="fa-solid fa-shield-halved text-success"></i>
+          </div>
+          <div class="card-body">
+            <div class="h4 fw-bold">98.5%</div>
+            <div class="text-xs text-muted"><span class="text-success">+0.2%</span> from last month</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card h-100">
+          <div class="card-header d-flex justify-content-between align-items-center pb-2">
+            <span class="text-muted small">Data Points</span>
+            <i class="fa-solid fa-database text-info"></i>
+          </div>
+          <div class="card-body">
+            <div class="h4 fw-bold">45.2K</div>
+            <div class="text-xs text-muted"><span class="text-info">+1.8K</span> from last month</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <!-- System Management -->
+      <div class="col-lg-8">
+        <div class="card h-100">
+          <div class="card-header d-flex align-items-center">
+            <i class="fa-solid fa-gear me-2"></i>
+            <span class="fw-bold">System Management</span>
+          </div>
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <button class="btn btn-outline-secondary w-100 text-start py-3">
+                  <div class="fw-medium">User Management</div>
+                  <div class="small text-muted">Manage user accounts and permissions</div>
+                </button>
+              </div>
+              <div class="col-md-6">
+                <button class="btn btn-outline-secondary w-100 text-start py-3">
+                  <div class="fw-medium">Sensor Configuration</div>
+                  <div class="small text-muted">Configure environmental sensors</div>
+                </button>
+              </div>
+              <div class="col-md-6">
+                <button class="btn btn-outline-secondary w-100 text-start py-3">
+                  <div class="fw-medium">Alert Settings</div>
+                  <div class="small text-muted">Manage alert thresholds and notifications</div>
+                </button>
+              </div>
+              <div class="col-md-6">
+                <button class="btn btn-outline-secondary w-100 text-start py-3">
+                  <div class="fw-medium">Data Analytics</div>
+                  <div class="small text-muted">View detailed system analytics</div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Recent Activities -->
+      <div class="col-lg-4">
+        <div class="card h-100">
+          <div class="card-header d-flex align-items-center">
+            <i class="fa-solid fa-chart-bar me-2"></i>
+            <span class="fw-bold">Recent Activities</span>
+          </div>
+          <div class="card-body">
+            <div class="mb-3 small text-muted">Latest system events and alerts</div>
+            <div class="mb-3 d-flex align-items-start justify-content-between">
+              <div>
+                <div class="fw-medium">New flood alert triggered</div>
+                <div class="small text-muted">District 5</div>
+              </div>
+              <div class="text-end">
+                <span class="badge bg-danger">high</span><br>
+                <span class="text-xs text-muted">2 min ago</span>
+              </div>
+            </div>
+            <div class="mb-3 d-flex align-items-start justify-content-between">
+              <div>
+                <div class="fw-medium">Carbon data updated</div>
+                <div class="small text-muted">City Center</div>
+              </div>
+              <div class="text-end">
+                <span class="badge bg-secondary">normal</span><br>
+                <span class="text-xs text-muted">15 min ago</span>
+              </div>
+            </div>
+            <div class="mb-3 d-flex align-items-start justify-content-between">
+              <div>
+                <div class="fw-medium">User reported waste issue</div>
+                <div class="small text-muted">Park Ave</div>
+              </div>
+              <div class="text-end">
+                <span class="badge bg-warning text-dark">medium</span><br>
+                <span class="text-xs text-muted">1 hour ago</span>
+              </div>
+            </div>
+            <div class="mb-3 d-flex align-items-start justify-content-between">
+              <div>
+                <div class="fw-medium">Heat sensor calibrated</div>
+                <div class="small text-muted">Industrial Zone</div>
+              </div>
+              <div class="text-end">
+                <span class="badge bg-secondary">normal</span><br>
+                <span class="text-xs text-muted">2 hours ago</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer-main mt-5 py-4">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+      <div class="mb-2 mb-md-0 fw-bold">
+        <i class="fa-solid fa-leaf me-2"></i>Urban Resilience Platform
+      </div>
+      <div class="footer-copyright small">
+        &copy; 2024 Green City Hack. All rights reserved.
+      </div>
+      <div>
+        <a href="https://github.com/" class="footer-link me-3" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="mailto:info@greencityhack.com" class="footer-link" title="Contact"><i class="fa fa-envelope"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
