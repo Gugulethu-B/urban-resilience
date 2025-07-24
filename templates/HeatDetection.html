@@ -8,16 +8,62 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <style>
-    body { background: #f8fafc; }
-    .gradient-bg { background: linear-gradient(135deg, #fff3e0 0%, #ffebee 100%); }
-    .bg-orange-500 { background-color: #fd7e14 !important; }
-    .bg-red-500 { background-color: #dc3545 !important; }
-    .bg-blue-500 { background-color: #0d6efd !important; }
-    .bg-green-500 { background-color: #198754 !important; }
-    .text-orange-500 { color: #fd7e14 !important; }
-    .text-red-500 { color: #dc3545 !important; }
-    .text-blue-500 { color: #0d6efd !important; }
-    .text-green-500 { color: #198754 !important; }
+    body { background: #fff; }
+    .gradient-bg { background: none; }
+    .card, .border-box {
+      border: 2px solid #b2f7cc !important;
+      border-radius: 16px !important;
+      box-shadow: 0 2px 12px rgba(25,135,84,0.07);
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .card:hover, .border-box:hover {
+      border-color: #198754 !important;
+      box-shadow: 0 4px 24px rgba(25,135,84,0.15);
+    }
+    .h1, .h2, .h3, .h4 {
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .heat-map-container {
+      border: 3px solid #198754;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(25,135,84,0.10);
+      background: #e6ffed;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .heat-map-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #198754;
+      margin-bottom: 1rem;
+    }
+    .heat-map-placeholder {
+      width: 100%;
+      height: 350px;
+      background: url('{{ url_for('static', filename='img/heat-map-green-placeholder.png') }}') center center/cover no-repeat;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      border: 2px dashed #198754;
+      /* fallback green gradient if image missing */
+      background-color: #b2f7cc;
+      background-image: linear-gradient(135deg, #e0ffe0 0%, #b2f7cc 100%);
+    }
+    .btn-view-map {
+      font-size: 1.15rem;
+      padding: 0.75rem 2rem;
+      border-radius: 8px;
+      background: #198754;
+      color: #fff;
+      border: none;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .btn-view-map:hover {
+      background: #157347;
+      box-shadow: 0 2px 8px rgba(25,135,84,0.15);
+      color: #fff;
+    }
   </style>
 </head>
 <body>
@@ -44,86 +90,75 @@
     </div>
   </nav>
 
-  <!-- Header -->
-  <section class="py-5 gradient-bg">
-    <div class="container">
-      <div class="d-flex align-items-center mb-4">
-        <div class="p-3 bg-warning bg-opacity-10 rounded-3 me-3">
-          <i class="fa-solid fa-temperature-high text-warning fa-2x"></i>
-        </div>
-        <div>
-          <h1 class="h3 fw-bold mb-1">Heat Detection System</h1>
-          <p class="text-muted mb-0">Monitor urban heat islands using Sentinel-2 satellite data</p>
-        </div>
-      </div>
-      <div class="row g-4">
-        <div class="col-md-3">
-          <div class="card h-100">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <div>
-                  <div class="small text-muted">Avg Temperature</div>
-                  <div class="h4 fw-bold">30.9°C</div>
-                </div>
-                <i class="fa-solid fa-temperature-high text-warning fa-2x"></i>
-              </div>
-              <span class="badge bg-secondary mb-2"><i class="fa-solid fa-arrow-trend-up me-1"></i>+1.2°C vs last week</span>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="card h-100">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <div>
-                  <div class="small text-muted">Heat Zones</div>
-                  <div class="h4 fw-bold">15</div>
-                </div>
-                <i class="fa-solid fa-map-pin text-danger fa-2x"></i>
-              </div>
-              <div class="small text-muted">3 high risk zones</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="card h-100">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <div>
-                  <div class="small text-muted">Satellite Coverage</div>
-                  <div class="h4 fw-bold">95%</div>
-                </div>
-                <i class="fa-solid fa-satellite-dish text-primary fa-2x"></i>
-              </div>
-              <div class="small text-muted">Last update: 2 hours ago</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="card h-100">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <div>
-                  <div class="small text-muted">Active Alerts</div>
-                  <div class="h4 fw-bold">3</div>
-                </div>
-                <i class="fa-solid fa-triangle-exclamation text-warning fa-2x"></i>
-              </div>
-              <div class="small text-muted">2 high temperature alerts</div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <!-- Heat Map Section (first thing on page) -->
+  <section class="heat-map-container">
+    <div class="heat-map-title">
+      <i class="fa-solid fa-map me-2"></i>Urban Heat Island Map
     </div>
+    <div class="heat-map-placeholder"></div>
+    <button class="btn btn-view-map">
+      <i class="fa-solid fa-eye me-2"></i>View Interactive Heat Map
+    </button>
+    <div class="mt-2 text-muted">Visualize real-time urban heat islands detected from satellite data.</div>
   </section>
 
-  <!-- Content -->
+  <!-- Satellite Data & Heat Island Detection (moved to top) -->
   <section class="py-5">
     <div class="container">
       <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="card h-100 border-box">
+            <div class="card-header fw-bold bg-warning bg-opacity-25">
+              <i class="fa-solid fa-satellite-dish text-primary me-2"></i>
+              Sentinel-2 Satellite Data <span class="text-muted small fw-normal">Detect Urban Heat Islands</span>
+            </div>
+            <div class="card-body">
+              <p class="mb-3 text-muted" style="font-size:1.15rem;">
+                <span class="fw-bold text-warning">Detect urban heat islands</span> using real-time Sentinel-2 satellite imagery. Analyze temperature patterns, identify high-risk zones, and support city planning for a cooler, more resilient urban environment.
+              </p>
+              <div class="mb-3 d-flex justify-content-between align-items-center p-3 border rounded">
+                <div>
+                  <div class="fw-medium">2024-01-15</div>
+                  <div class="small text-muted">Coverage: 95%</div>
+                </div>
+                <div class="text-end">
+                  <span class="badge bg-primary">Excellent</span>
+                </div>
+              </div>
+              <div class="mb-3 d-flex justify-content-between align-items-center p-3 border rounded">
+                <div>
+                  <div class="fw-medium">2024-01-12</div>
+                  <div class="small text-muted">Coverage: 88%</div>
+                </div>
+                <div class="text-end">
+                  <span class="badge bg-secondary">Good</span>
+                </div>
+              </div>
+              <div class="mb-3 d-flex justify-content-between align-items-center p-3 border rounded">
+                <div>
+                  <div class="fw-medium">2024-01-09</div>
+                  <div class="small text-muted">Coverage: 92%</div>
+                </div>
+                <div class="text-end">
+                  <span class="badge bg-primary">Excellent</span>
+                </div>
+              </div>
+              <div class="mb-3 d-flex justify-content-between align-items-center p-3 border rounded">
+                <div>
+                  <div class="fw-medium">2024-01-06</div>
+                  <div class="small text-muted">Coverage: 85%</div>
+                </div>
+                <div class="text-end">
+                  <span class="badge bg-secondary">Good</span>
+                </div>
+              </div>
+              <a href="#" class="btn btn-outline-secondary w-100 mt-3"><i class="fa-solid fa-satellite-dish me-2"></i>Access Raw Data</a>
+            </div>
+          </div>
+        </div>
         <!-- Heat Zone Monitor -->
         <div class="col-lg-6">
-          <div class="card h-100">
+          <div class="card h-100 border-box">
             <div class="card-header fw-bold">Heat Zone Monitor <span class="text-muted small fw-normal">Real-time temperature monitoring across city zones</span></div>
             <div class="card-body">
               <div class="mb-3 d-flex justify-content-between align-items-center p-3 bg-light rounded">
@@ -195,54 +230,9 @@
             </div>
           </div>
         </div>
-        <!-- Satellite Data -->
-        <div class="col-lg-6">
-          <div class="card h-100">
-            <div class="card-header fw-bold">Sentinel-2 Data <span class="text-muted small fw-normal">Latest satellite imagery and analysis</span></div>
-            <div class="card-body">
-              <div class="mb-3 d-flex justify-content-between align-items-center p-3 border rounded">
-                <div>
-                  <div class="fw-medium">2024-01-15</div>
-                  <div class="small text-muted">Coverage: 95%</div>
-                </div>
-                <div class="text-end">
-                  <span class="badge bg-primary">Excellent</span>
-                </div>
-              </div>
-              <div class="mb-3 d-flex justify-content-between align-items-center p-3 border rounded">
-                <div>
-                  <div class="fw-medium">2024-01-12</div>
-                  <div class="small text-muted">Coverage: 88%</div>
-                </div>
-                <div class="text-end">
-                  <span class="badge bg-secondary">Good</span>
-                </div>
-              </div>
-              <div class="mb-3 d-flex justify-content-between align-items-center p-3 border rounded">
-                <div>
-                  <div class="fw-medium">2024-01-09</div>
-                  <div class="small text-muted">Coverage: 92%</div>
-                </div>
-                <div class="text-end">
-                  <span class="badge bg-primary">Excellent</span>
-                </div>
-              </div>
-              <div class="mb-3 d-flex justify-content-between align-items-center p-3 border rounded">
-                <div>
-                  <div class="fw-medium">2024-01-06</div>
-                  <div class="small text-muted">Coverage: 85%</div>
-                </div>
-                <div class="text-end">
-                  <span class="badge bg-secondary">Good</span>
-                </div>
-              </div>
-              <a href="#" class="btn btn-outline-secondary w-100 mt-3"><i class="fa-solid fa-satellite-dish me-2"></i>Access Raw Data</a>
-            </div>
-          </div>
-        </div>
       </div>
       <!-- Heat Island Analysis -->
-      <div class="card mt-5">
+      <div class="card mt-5 border-box">
         <div class="card-header fw-bold">Heat Island Analysis <span class="text-muted small fw-normal">Insights and recommendations based on current data</span></div>
         <div class="card-body">
           <div class="row g-3">
@@ -277,6 +267,16 @@
       <div class="footer-copyright small">
         &copy; 2024 Green City Hack. All rights reserved.
       </div>
+      <div>
+        <a href="https://github.com/" class="text-white me-3" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="mailto:info@greencityhack.com" class="text-white" title="Contact"><i class="fa fa-envelope"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
       <div>
         <a href="https://github.com/" class="text-white me-3" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
         <a href="mailto:info@greencityhack.com" class="text-white" title="Contact"><i class="fa fa-envelope"></i></a>

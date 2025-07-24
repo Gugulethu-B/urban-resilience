@@ -190,5 +190,26 @@ def update_river_level():
 #         for phone in phones: # This line is removed as per the new_code
 #             send_sms(phone, f"Flood Alert! River level is {level}m, exceeding safe threshold.") # This line is removed as per the new_code
 
+# Import EcoSort classifier
+import sys
+sys.path.append(basedir)
+from ecosort import classify  # Make sure ecosort.py exists with a classify(image_path) function
+
+@app.route('/api/ecosort_classify', methods=['POST'])
+def ecosort_classify():
+    if 'wasteImage' not in request.files:
+        return jsonify({'success': False, 'error': 'No image uploaded'}), 400
+    image_file = request.files['wasteImage']
+    image_path = os.path.join(basedir, 'temp_ecosort_upload.jpg')
+    image_file.save(image_path)
+    try:
+        result = classify(image_path)
+        return jsonify({'success': True, **result})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+    finally:
+        if os.path.exists(image_path):
+            os.remove(image_path)
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
